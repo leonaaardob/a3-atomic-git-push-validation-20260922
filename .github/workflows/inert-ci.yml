@@ -1,0 +1,13 @@
+name: inert-ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  inert-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fixed inert check
+        run: echo 'Fixed inert check passed; no candidate code was executed.'

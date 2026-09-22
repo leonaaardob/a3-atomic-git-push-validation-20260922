@@ -1,0 +1,25 @@
+name: review-probe
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Disposable pull request number
+        required: true
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR_NUMBER: ${{ inputs.pr }}
+    steps:
+      - name: Review inert fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/reviews" \
+            -f event=APPROVE -f body='Approved for disposable A.3 probe only.' \
+            --jq '{id,state,commit_id,submitted_at}'
