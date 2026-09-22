@@ -1,0 +1,20 @@
+name: candidate-permission-probe
+on:
+  pull_request:
+    types: [synchronize]
+permissions:
+  contents: write
+jobs:
+  create-inert-ref:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Test candidate-requested write scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api -X POST "repos/$GITHUB_REPOSITORY/git/refs" \
+            -f ref=refs/heads/candidate-token-probe -f sha="$GITHUB_SHA" \
+            --jq '{ref,sha:.object.sha}'
