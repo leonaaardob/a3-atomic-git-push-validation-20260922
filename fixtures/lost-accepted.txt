@@ -1,0 +1,1 @@
+Accepted update response is discarded; later reads reconcile the branch.
