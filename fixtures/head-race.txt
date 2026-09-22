@@ -1,0 +1,2 @@
+Head movement changes commit identity while preserving inert contents.
+This revision changes the content after an earlier approval.
