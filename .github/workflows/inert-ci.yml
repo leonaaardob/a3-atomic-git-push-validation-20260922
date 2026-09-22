@@ -9,5 +9,7 @@ jobs:
   inert-ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Fixed inert check
-        run: echo 'Fixed inert check passed; no candidate code was executed.'
+      - name: Delayed inert check for stale-CI probe
+        run: |
+          sleep 45
+          echo 'Delayed inert check passed; no candidate program was executed.'
